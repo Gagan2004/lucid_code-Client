@@ -1,25 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-/* :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+body {
+  font-family: 'Roboto', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Targeting default React Flow handles */
+.react-flow__handle {
+  width: 10px !important; /* Increase the width */
+  height: 10px !important; /* Increase the height */
+  border-radius: 50% !important; /* Make them round, optional */
+  background: #1a1a1a !important; /* Add a background color for visibility */
+  /* You can add more styles like border, etc. */
+}
+
+/* Increasing the clickable area around the handle */
+.react-flow__handle::before {
+  content: '';
+  position: absolute;
+  top: 5px; /* Adjust these values to increase the clickable area */
+  left: 5px; /* Adjust these values to increase the clickable area */
+  right: 5px; /* Adjust these values to increase the clickable area */
+  bottom: 5px; /* Adjust these values to increase the clickable area */
+  background: transparent; /* Keep the pseudo-element invisible */
+  pointer-events: all; /* Make the pseudo-element receive mouse events */
+}
+
+
+
 a {
   font-weight: 500;
   color: #646cff;
-  text-decoration: inherit;
+  text-decoration: inherit; 
 }
 a:hover {
   color: #535bf2;
@@ -27,10 +44,25 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  min-height: 100vh; /* Ensure body takes at least full viewport height */
+}
+
+.react-flow__controls button {
+  background-color: #333; /* Dark background for buttons */
+  color: #e0e0e0; /* Light text/icon color */
+  border: 1px solid #444; /* Subtle border */
+  margin: 2px; /* Add some margin between buttons */
+}
+
+.react-flow__controls button:hover {
+  background-color: #444; /* Slightly lighter background on hover */
+  color: #fff; /* White text/icon on hover */
+  border-color: #555; /* Slightly lighter border on hover */
+}
+
+.react-flow__controls button svg {
+  fill: #e0e0e0; /* Ensure icons are light */
 }
 
 h1 {
@@ -46,10 +78,11 @@ button {
   font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
+  color: #e0e0e0; /* Light grey text color */
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: background-color 0.25s ease-in-out;
 }
-button:hover {
+button:hover, button:focus {
   border-color: #646cff;
 }
 button:focus,
@@ -59,13 +92,21 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #213547; /* Dark grey text color */
+    background-color: #ffffff; /* White background */
   }
   a:hover {
     color: #747bff;
   }
   button {
     background-color: #f9f9f9;
+    color: #213547; /* Dark grey text color */
   }
-} */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #e0e0e0; /* Light grey text color */
+    background-color: #1a1a1a; /* Dark grey background color */
+  }
+}

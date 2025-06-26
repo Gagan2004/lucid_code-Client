@@ -111,15 +111,15 @@ function App() {
       <Sidebar />
 
       <div
-        className="flex-1 h-screen"
+        className="flex-1 flex flex-col"
         onDrop={onDrop}
         onDragOver={(e) => e.preventDefault()}
       >
         {/* Toolbar */}
-        <div className="p-2 flex gap-4 bg-gray-100 border-b items-center">
+        <div className="p-4 flex gap-6 bg-gray-900 border-b border-gray-700 items-center text-gray-200">
           {/* Export JSON */}
           <button
-            className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
+            className=" font-semibold tracking-wide bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600"
             onClick={() => {
               const data = JSON.stringify({ nodes, edges }, null, 2)
               const blob = new Blob([data], { type: 'application/json' })
@@ -134,7 +134,7 @@ function App() {
           </button>
 
           {/* Import JSON */}
-          <label className="bg-green-500 text-white px-3 py-1 rounded cursor-pointer hover:bg-green-600">
+          <label className="font-semibold tracking-wide bg-green-600 text-white px-3 py-1 rounded cursor-pointer hover:bg-green-700 transition-colors duration-200">
             Import JSON
             <input
               type="file"
@@ -162,7 +162,7 @@ function App() {
 
           {/* AI Mode Selector */}
           <select
-            className="border rounded p-2"
+            className="font-semibold tracking-wide border border-gray-600 rounded p-2 bg-gray-700 text-gray-200 focus:outline-none focus:border-blue-500"
             value={aiMode}
             onChange={(e) =>
               setAiMode(e.target.value as 'pseudocode' | 'explanation' | 'code')
@@ -174,8 +174,8 @@ function App() {
           </select>
 
           {/* Generate AI Output */}
-          <button
-            className="bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700"
+          <button 
+            className=" font-semibold tracking-wide bg-purple-600 text-white px-3 py-1 rounded hover:bg-purple-700"
             onClick={handleGenerateAi}
           >
             Generate AI Output
@@ -183,31 +183,44 @@ function App() {
         </div>
 
         {/* React Flow Canvas */}
-        <ReactFlow
-          nodes={nodes}
-          edges={edges}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
-          onConnect={onConnect}
-          onNodeClick={(_, node) => setSelectedNode(node)}
-          nodeTypes={nodeTypes}
-          fitView
-        >
-          <Background />
-          <Controls />
-          <MiniMap />
+        <ReactFlow className="flex-1"
+ nodes={nodes}
+ edges={edges}
+ onNodesChange={onNodesChange}
+ onEdgesChange={onEdgesChange}
+ onConnect={onConnect}
+ onNodeClick={(_, node) => setSelectedNode(node)}
+ nodeTypes={nodeTypes}
+ fitView
+ style={{ background: '#1e1e1e' }} // Slightly lighter dark background
+ >
+          <Background variant="dots" gap={12} size={1} color="#444" /> {/* Darker background dots */}
+          <Controls
+            style={{ bottom: 20, left: 20 }} // Position controls at bottom left
+            showZoom={true}
+            showFitView={true}
+            showInteractive={false}
+            className="react-flow__controls--dark" // Custom class for styling
+ />
+          <MiniMap
+            position="bottom-right" // Position minimap at bottom right
+ nodeColor={() => '#4a4a4a'} // Darker node color in minimap
+            nodeBorderRadius={2}
+            maskColor="#22262d99" // Darker mask color
+          />
         </ReactFlow>
       </div>
 
       {/* Edit Block Side Panel */}
+      {/* Edit Block Side Panel */}
       {selectedNode && (
-        <div className="fixed top-0 right-0 w-80 h-full bg-white shadow-lg border-l p-4 z-50">
-          <h2 className="text-lg font-semibold mb-4">Edit Block</h2>
+        <div className="fixed top-0 right-0 w-80 h-full bg-gray-800 shadow-xl border-l border-gray-700 p-4 z-50 text-gray-200"> {/* Dark theme classes */}
+          <h2 className="text-lg font-semibold mb-4 text-gray-100">Edit Block</h2> {/* Darker heading color */}
 
-          <label className="block mb-2 text-sm font-medium">Label</label>
+          <label className="block mb-2 text-sm font-medium text-gray-300">Label</label> {/* Label color */}
           <input
             type="text"
-            className="w-full border rounded p-2 mb-4"
+            className="w-full border border-gray-600 rounded p-2 mb-4 bg-gray-700 text-gray-100 focus:outline-none focus:border-blue-500" /* Input styling */
             value={selectedNode.data.label}
             onChange={(e) => {
               const updatedLabel = e.target.value
@@ -224,9 +237,9 @@ function App() {
             }}
           />
 
-          <label className="block mb-2 text-sm font-medium">Description</label>
+          <label className="block mb-2 text-sm font-medium text-gray-300">Description</label> {/* Label color */}
           <textarea
-            className="w-full border rounded p-2 mb-4"
+            className="w-full border border-gray-600 rounded p-2 mb-4 bg-gray-700 text-gray-100 focus:outline-none focus:border-blue-500" /* Textarea styling */
             value={selectedNode.data.description}
             onChange={(e) => {
               const updatedDesc = e.target.value
@@ -243,9 +256,9 @@ function App() {
             }}
           />
 
-          <label className="block mb-2 text-sm font-medium">Logic Type</label>
+          <label className="block mb-2 text-sm font-medium text-gray-300">Logic Type</label> {/* Label color */}
           <select
-            className="w-full border rounded p-2"
+            className="w-full border border-gray-600 rounded p-2 bg-gray-700 text-gray-100 focus:outline-none focus:border-blue-500" /* Select styling */
             value={selectedNode.data.logicType}
             onChange={(e) => {
               const newType = e.target.value
@@ -268,13 +281,14 @@ function App() {
           </select>
 
           <button
-            className="mt-6 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+            className="mt-6 bg-red-700 hover:bg-red-600 text-white px-4 py-2 rounded" /* Button styling */
             onClick={() => setSelectedNode(null)}
           >
             Close
           </button>
         </div>
       )}
+
 
       {/* AI Output Modal */}
       <AIModal

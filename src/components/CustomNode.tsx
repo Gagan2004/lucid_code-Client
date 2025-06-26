@@ -11,25 +11,25 @@ export type CustomNodeData = {
   };
 
 const icons: any = {
-  input: <Sparkles className="text-blue-500" size={20} />,
-  api: <Server className="text-purple-500" size={20} />,
-  decision: <GitBranch className="text-yellow-500" size={20} />,
-  output: <Terminal className="text-green-500" size={20} />,
+  input: <Sparkles className="text-blue-400" size={20} />,
+  api: <Server className="text-purple-400" size={20} />,
+  decision: <GitBranch className="text-yellow-400" size={20} />,
+  output: <Terminal className="text-green-400" size={20} />,
 }
 
 const CustomNode: React.FC<NodeProps> = ({ data }) => {
   return (
-    <div className="bg-white border-2 rounded-lg shadow-md px-4 py-3 w-56">
+    <div className="bg-gray-700 border border-gray-600 rounded-lg px-4 py-3 w-56 text-gray-200 hover:bg-gray-600 transition-colors duration-200 shadow-md">
       <div className="flex items-center gap-2 mb-1">
         {icons[data.logicType]}
-        <h3 className="font-bold text-sm">{data.label || 'Untitled Block'}</h3>
+        <h3 className="font-bold text-sm text-gray-100">{data.label || 'Untitled Block'}</h3>
       </div>
-      <p className="text-xs text-gray-500">{data.description || 'No description.'}</p>
+      <p className="text-xs text-gray-400">{String(data.description) || 'No description.'}</p>
 
       <Handle type="target" position={Position.Top} />
       <Handle type="source" position={Position.Bottom} />
-      {/* <Handle type="source" position={Position.Right} />
-      <Handle type="target" position={Position.Left} /> */}
+      {/* <Handle type=\"source\" position={Position.Right} />
+      <Handle type=\"target\" position={Position.Left} /> */}
 
     </div>
   )
