@@ -87,10 +87,12 @@ function App() {
 
     // 2. Build the prompt based on selected mode
     const prompt = buildPrompt(logicBlocks, aiMode)
+    const BASE_URL ="https://lucidcode-server.onrender.com/"
+
 
     try {
       // 3. Send prompt to backend API
-      const response = await fetch('/api/ask-ai', {
+      const response = await fetch('${BASE_URL}/api/ask-ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt, mode: aiMode }),
