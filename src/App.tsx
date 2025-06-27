@@ -92,7 +92,7 @@ function App() {
 
     try {
       // 3. Send prompt to backend API
-      const response = await fetch('${BASE_URL}/api/ask-ai', {
+      const response = await fetch(`${BASE_URL}/api/ask-ai`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ prompt, mode: aiMode }),
