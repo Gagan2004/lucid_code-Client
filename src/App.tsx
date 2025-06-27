@@ -87,7 +87,7 @@ function App() {
 
     // 2. Build the prompt based on selected mode
     const prompt = buildPrompt(logicBlocks, aiMode)
-    const BASE_URL ="https://lucidcode-server.onrender.com/"
+    const BASE_URL ="https://lucidcode-server.onrender.com"
 
 
     try {
